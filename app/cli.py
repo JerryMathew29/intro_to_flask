@@ -9,6 +9,7 @@ def register(app):
     @blueprint.command()
     @click.argument('name')
     def create(name):
+    
         """Create new Flask Blueprint"""
         basedir = os.path.abspath(os.path.dirname(__name__)) + f'/app/blueprints/{name}'
 

@@ -1,6 +1,7 @@
 from .import bp as shop
 from flask import flash, request, render_template, redirect, url_for, session, jsonify
 from app.blueprints.shop.models import Product
+from flask_login import current_user, login_required
 
 import stripe, os
 
@@ -12,6 +13,7 @@ stripe_keys = {
 stripe.api_key = stripe_keys['secret_key']
 
 @shop.route('/')
+@login_required
 def get_products():
     context = {
         'products': Product.query.all(),
@@ -57,6 +59,7 @@ def clear_cart():
     return redirect(url_for('shop.cart'))
 
 @shop.route('/cart')
+@login_required
 def cart():
     display_cart = []
     session['cart']['cart_total'] = 0
